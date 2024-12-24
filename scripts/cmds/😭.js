@@ -1,0 +1,75 @@
+module.exports = {
+	config: {
+		name: "😭",
+		version: "1.0",
+		author: "Ghost",
+		countDown: 5,
+		role: 0,
+		shortDescription: "Humour triste",
+		longDescription: "Réponses de type tragique et insultantes, mais drôles.",
+		category: "reply",
+	},
+	onStart: async function() {},
+	onChat: async function({
+		event,
+		message,
+		getLang
+	}) {
+		if (event.body && event.body.toLowerCase() == "😭") {
+			const responses = [
+				"Tu pleures, et c'est la pire des choses qui t'ait jamais arrivé. Félicitations.",
+				"Tu sais, pleurer ne résout rien, sauf peut-être rendre ton humour encore plus minable.",
+				"Si pleurer pouvait réparer ton sens de l'humour, tu serais guéri depuis longtemps.",
+				"Si tu veux vraiment pleurer, fais-le devant un miroir. C'est encore plus pathétique.",
+				"Tu devrais t'inscrire à un concours de larmes, parce que là, tu as un niveau d'expertise.",
+				"Pleurer ne changera rien, mais au moins, tu feras sourire tout le monde avec ton regard de victime.",
+				"Si tes larmes avaient de la valeur, tu serais milliardaire maintenant.",
+				"Franchement, tes pleurs sont aussi convaincants que ton humour... nul.",
+				"Tu veux un mouchoir ? Ou tu préfères un cours sur comment être drôle ?",
+				"Ton génie comique est si rare, même les larmes n'arrivent pas à l'effacer.",
+				"Ce n'était pas une bonne blague, c'était juste de l'autodérision bien pourrie.",
+				"Ce que tu viens de dire, c'est digne des meilleurs films de navet. Bravo pour la performance.",
+				"Pleurer à cause de ça ? Il y a des gens qui souffrent pour de vraies raisons.",
+				"Si tu pleures, je vais vraiment avoir des doutes sur la qualité de ton sens de l'humour.",
+				"J'aurais préféré que tu pleures de rire, mais visiblement, c'est trop demander.",
+				"Tu pleures, mais je crois que c'est à cause de ta propre blague déplorable.",
+				"Tes larmes ne vont pas effacer l'ampleur de ta blague... elle est restée dans l'histoire du ridicule.",
+				"Si tu continues à pleurer, je vais devoir t'envoyer un kit de secours pour soulager ton humour en détresse.",
+				"Les larmes sont un art, mais pas quand elles suivent une blague aussi foireuse.",
+				"Ta performance m'a presque fait pleurer aussi, mais c'était plus à cause du désespoir.",
+				// Nouvelles phrases ajoutées
+				"Tu pleures tellement que même les oignons sont jaloux de toi.",
+				"Tes larmes pourraient remplir une piscine, mais ça resterait plus vide que ta vie sociale.",
+				"Arrête de pleurer, tu risques d'inonder ta carrière... oh, attends, tu n'en as pas.",
+				"Les mouchoirs devraient être sponsorisés par ton incapacité à raconter une blague.",
+				"Tu es une légende... du ridicule. Bravo pour cette performance larmoyante.",
+				"Même Netflix n'a pas un drame aussi pathétique que toi.",
+				"Si pleurer était une compétition olympique, tu aurais une médaille... en papier.",
+				"Tes larmes ne sont même pas dignes d’une scène dans un mauvais soap opéra.",
+				"Si pleurer brûlait des calories, tu serais mannequin maintenant.",
+				"Continue de pleurer, au moins ça masque ton absence de personnalité.",
+				"Tes larmes ont plus de succès que tes blagues, et c’est triste.",
+				"Tu es la preuve vivante qu’on peut pleurer de désespoir après une blague ratée.",
+				"Même ton miroir ne veut plus te voir pleurer tellement c'est gênant.",
+				"On dirait que tes larmes sont aussi profondes que ta compréhension des blagues.",
+				"À ce rythme, tu pourrais breveter un mouchoir ultra-absorbant pour les losers.",
+				"Quand tu pleures, même les araignées quittent la pièce tellement c’est inconfortable.",
+				"Tes larmes sont l’équivalent comique d’un échec cuisant.",
+				"Tu es comme un nuage de pluie : inutile et toujours là pour gâcher l’ambiance.",
+				"Si pleurer était une solution, on aurait trouvé ça dans les manuels d’humour.",
+				"Même ton ombre s’éloigne quand elle te voit pleurer comme ça.",
+				"On pourrait écrire une tragédie sur toi, mais ce serait moins drôle que cette scène.",
+				"Tes pleurs sont un hommage à ta blague morte avant même d’être née.",
+				"Pleurer ne te rendra pas plus drôle, mais ça nous donne un bon spectacle.",
+				"Avec toi, même les larmes ont honte de couler.",
+				"Si être pathétique était un art, tu serais un chef-d'œuvre vivant.",
+				"Tes larmes auraient pu sauver le Titanic, mais elles sont arrivées trop tard.",
+				"Arrête de pleurer, tu risques de noyer les quelques neurones qu’il te reste.",
+				"On dirait que tu veux rejoindre le club des clowns tristes. Bienvenue, champion.",
+				"Tes larmes, c’est comme ta blague : personne n’en veut, mais elles sont là.",
+				"Même un koala dépressif serait plus amusant que toi en train de pleurer."
+			];
+			return message.reply(responses[Math.floor(Math.random() * responses.length)]);
+		}
+	}
+};
