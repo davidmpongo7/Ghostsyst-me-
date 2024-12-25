@@ -7,15 +7,11 @@ function checkShortCut(nickname, uid, userName) {
 module.exports = {
 	config: {
 		name: "autosetname",
-		version: "1.2",
+		version: "1.3",
 		author: "NTKhang",
 		cooldowns: 5,
 		role: 1,
-		shortDescription: {
-			vi: "Tự đổi biệt danh thành viên mới",
-			en: "Auto change nickname of new member"
-		},
-		longDescription: {
+		description: {
 			vi: "Tự đổi biệt danh cho thành viên mới vào nhóm chat",
 			en: "Auto change nickname of new member"
 		},
@@ -50,14 +46,14 @@ module.exports = {
 			error: "Đã có lỗi xảy ra khi sử dụng chức năng autoSetName, thử tắt tính năng liên kết mời trong nhóm và thử lại sau"
 		},
 		en: {
-			missingConfig: "Please enter the required configuration",
-			configSuccess: "The configuration has been set successfully",
-			currentConfig: "The current autoSetName configuration in your chat group is:\n%1",
-			notSetConfig: "Your group has not set the autoSetName configuration",
-			syntaxError: "Syntax error, only \"{pn} on\" or \"{pn} off\" can be used",
-			turnOnSuccess: "The autoSetName feature has been turned on",
-			turnOffSuccess: "The autoSetName feature has been turned off",
-			error: "An error occurred while using the autoSetName feature, try turning off the invite link feature in the group and try again later"
+			missingConfig: "Alors, t'as vraiment rien foutu là. Mets une configuration, stp.",
+			configSuccess: "La configuration a été installée avec succès, même toi tu pourrais le faire.",
+			currentConfig: "La configuration autoSetName dans ton groupe de chat est :\n%1, comme tu veux ?",
+			notSetConfig: "Ton groupe n'a pas encore configuré autoSetName. T'es sérieux ?",
+			syntaxError: "Erreur de syntaxe, mec, seulement \"{pn} on\" ou \"{pn} off\". Tu savais pas ?",
+			turnOnSuccess: "Le truc autoSetName est enfin activé. Peut-être que tu vas réussir à l'utiliser.",
+			turnOffSuccess: "T'as réussi à désactiver autoSetName, félicitations pour avoir trouvé le bouton.",
+			error: "Quelque chose a mal tourné. Peut-être que tu as cliqué sur le mauvais bouton, reviens plus tard. Le monde ne t'en voudra pas."
 		}
 	},
 
