@@ -3,15 +3,11 @@ const { getStreamFromURL, uploadImgbb } = global.utils;
 module.exports = {
 	config: {
 		name: "antichangeinfobox",
-		version: "1.8",
+		version: "1.9",
 		author: "NTKhang",
 		countDown: 5,
 		role: 0,
-		shortDescription: {
-			vi: "Chống đổi thông tin box chat",
-			en: "Anti change info box"
-		},
-		longDescription: {
+		description: {
 			vi: "Bật tắt chức năng chống thành viên đổi thông tin box chat của bạn",
 			en: "Turn on/off anti change info box"
 		},
@@ -51,23 +47,23 @@ module.exports = {
 			antiChangeEmojiAlreadyOn: "Hiện tại box chat của bạn đang bật chức năng cấm thành viên đổi emoji"
 		},
 		en: {
-			antiChangeAvatarOn: "Turn on anti change avatar box chat",
-			antiChangeAvatarOff: "Turn off anti change avatar box chat",
-			missingAvt: "You have not set avatar for box chat",
-			antiChangeNameOn: "Turn on anti change name box chat",
-			antiChangeNameOff: "Turn off anti change name box chat",
-			antiChangeNicknameOn: "Turn on anti change nickname box chat",
-			antiChangeNicknameOff: "Turn off anti change nickname box chat",
-			antiChangeThemeOn: "Turn on anti change theme box chat",
-			antiChangeThemeOff: "Turn off anti change theme box chat",
-			antiChangeEmojiOn: "Turn on anti change emoji box chat",
-			antiChangeEmojiOff: "Turn off anti change emoji box chat",
-			antiChangeAvatarAlreadyOn: "Your box chat is currently on anti change avatar",
-			antiChangeAvatarAlreadyOnButMissingAvt: "Your box chat is currently on anti change avatar but your box chat has not set avatar",
-			antiChangeNameAlreadyOn: "Your box chat is currently on anti change name",
-			antiChangeNicknameAlreadyOn: "Your box chat is currently on anti change nickname",
-			antiChangeThemeAlreadyOn: "Your box chat is currently on anti change theme",
-			antiChangeEmojiAlreadyOn: "Your box chat is currently on anti change emoji"
+			antiChangeAvatarOn: "T'as réussi à le faire, t'as enfin activé l'anti changement d'avatar. Ça t'a pris combien de temps, un siècle ? 😜",
+			antiChangeAvatarOff: "Ah, t'as décidé de tout casser en éteignant l'anti-changement d'avatar. Bravo, champion. 👏",
+			missingAvt: "Tu t'es réveillé ce matin et t'as oublié d'ajouter un avatar, hein ? Laisse tomber, on va le régler. 😏",
+			antiChangeNameOn: "Félicitations, t'as activé la protection contre les changements de nom. Et tu t'es dit que c'était nécessaire, ou juste pour briller ? 😂",
+			antiChangeNameOff: "Ah, tu veux que je désactive la protection contre les changements de nom ? Sérieusement, c'est ce que tu veux ? 🙄",
+			antiChangeNicknameOn: "Tu vois, t'as activé la fonction pour bloquer le changement de nickname. T'es trop parano ou c'est juste moi ? 🤪",
+			antiChangeNicknameOff: "Tu t'es dit que c'était peut-être mieux d'enlever la protection des nicknames. Bon choix... enfin, peut-être. 😅",
+			antiChangeThemeOn: "Bon boulot, t'as activé la protection contre le changement de thème. Faut vraiment être un génie pour ça, non ? 😜",
+			antiChangeThemeOff: "Ah, maintenant tu veux supprimer la protection de thème... J'espère que c'est pas pour changer en rose, hein. 😤",
+			antiChangeEmojiOn: "Tu t'es enfin décidé à activer l'anti-changement d'emoji. T'avais peur que quelqu'un mette un emoji trop moche, c'est ça ? 🤡",
+			antiChangeEmojiOff: "Tu veux enlever la protection contre les emojis ? On va voir quel genre d'emoji bizarre tu veux imposer alors. 🙄",
+			antiChangeAvatarAlreadyOn: "Le changement d'avatar est déjà bloqué. T'as réussi à rien faire cette fois, désolé. 😆",
+			antiChangeAvatarAlreadyOnButMissingAvt: "T'as activé la protection, mais t'as oublié l'avatar. Sérieusement, tu veux protéger quoi sans avatar ? 😑",
+			antiChangeNameAlreadyOn: "Le changement de nom est déjà protégé. T'aurais pu me dire plus tôt, non ? 😒",
+			antiChangeNicknameAlreadyOn: "Le changement de nickname est déjà bloqué. Mais bon, ça sert à rien si t'as pas de cerveau pour y réfléchir. 😏",
+			antiChangeThemeAlreadyOn: "La protection contre le changement de thème est déjà activée. Dommage, je croyais que tu voulais quelque chose de fun. 😎",
+			antiChangeEmojiAlreadyOn: "Les emojis sont protégés, donc va falloir être créatif pour faire des changements. Bonne chance. 😁"
 		}
 	},
 
@@ -77,7 +73,6 @@ module.exports = {
 		const { threadID } = event;
 		const dataAntiChangeInfoBox = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
 		async function checkAndSaveData(key, data) {
-			// dataAntiChangeInfoBox[key] = args[1] === "on" ? data : false;
 			if (args[1] === "off")
 				delete dataAntiChangeInfoBox[key];
 			else
@@ -131,17 +126,10 @@ module.exports = {
 				if (!dataAntiChange.avatar && role < 1)
 					return;
 				return async function () {
-					// check if user not is admin or bot then change avatar back
 					if (role < 1 && api.getCurrentUserID() !== author) {
-						if (dataAntiChange.avatar != "REMOVE") {
-							message.reply(getLang("antiChangeAvatarAlreadyOn"));
-							api.changeGroupImage(await getStreamFromURL(dataAntiChange.avatar), threadID);
-						}
-						else {
-							message.reply(getLang("antiChangeAvatarAlreadyOnButMissingAvt"));
-						}
+						message.reply(getLang("antiChangeAvatarAlreadyOn"));
+						api.changeGroupImage(await getStreamFromURL(dataAntiChange.avatar), threadID);
 					}
-					// else save new avatar
 					else {
 						const imageSrc = logMessageData.url;
 						if (!imageSrc)
@@ -154,8 +142,6 @@ module.exports = {
 			}
 			case "log:thread-name": {
 				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
-				// const name = await threadsData.get(threadID, "data.antiChangeInfoBox.name");
-				// if (name == false)
 				if (!dataAntiChange.hasOwnProperty("name"))
 					return;
 				return async function () {
@@ -171,8 +157,6 @@ module.exports = {
 			}
 			case "log:user-nickname": {
 				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
-				// const nickname = await threadsData.get(threadID, "data.antiChangeInfoBox.nickname");
-				// if (nickname == false)
 				if (!dataAntiChange.hasOwnProperty("nickname"))
 					return;
 				return async function () {
@@ -189,8 +173,6 @@ module.exports = {
 			}
 			case "log:thread-color": {
 				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
-				// const themeID = await threadsData.get(threadID, "data.antiChangeInfoBox.theme");
-				// if (themeID == false)
 				if (!dataAntiChange.hasOwnProperty("theme"))
 					return;
 				return async function () {
@@ -206,8 +188,6 @@ module.exports = {
 			}
 			case "log:thread-icon": {
 				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
-				// const emoji = await threadsData.get(threadID, "data.antiChangeInfoBox.emoji");
-				// if (emoji == false)
 				if (!dataAntiChange.hasOwnProperty("emoji"))
 					return;
 				return async function () {
