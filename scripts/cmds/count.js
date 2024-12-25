@@ -41,6 +41,16 @@ module.exports = {
 		}
 	},
 
+	insults: [
+		"T'es tellement inutile que même ton ombre t'évite.",
+		"Si la stupidité était un sport, tu serais champion olympique.",
+		"Quand t’as une idée, elle se perd toute seule.",
+		"Ton cerveau est comme du WiFi gratuit : personne ne s’y connecte.",
+		"T’es le genre de personne qui perd dans un concours de solitude.",
+		"J’ai vu des plantes avoir plus de conversations intéressantes que toi.",
+		"Le jour où ils distribuaient l’intelligence, tu pensais que c’était une grève."
+	],
+
 	onStart: async function ({ args, threadsData, message, event, api, commandName, getLang }) {
 		const { threadID, senderID } = event;
 		const threadData = await threadsData.get(threadID);
@@ -50,9 +60,8 @@ module.exports = {
 		for (const user of members) {
 			if (!usersInGroup.includes(user.userID))
 				continue;
-			const charac = "️️️️️️️️️️️️️️️️️"; // This character is banned from facebook chat (it is not an empty string)
 			arraySort.push({
-				name: user.name.includes(charac) ? `Uid: ${user.userID}` : user.name,
+				name: user.name,
 				count: user.count,
 				uid: user.userID
 			});
@@ -69,79 +78,29 @@ module.exports = {
 					if (item.count > 0)
 						msg += `\n${item.stt}/ ${item.name}: ${item.count}`;
 				}
-
-				if ((msg + endMessage).length > 19999) {
-					msg = "";
-					let page = parseInt(args[1]);
-					if (isNaN(page))
-						page = 1;
-					const splitPage = global.utils.splitPage(arraySort, 50);
-					arraySort = splitPage.allPage[page - 1];
-					for (const item of arraySort) {
-						if (item.count > 0)
-							msg += `\n${item.stt}/ ${item.name}: ${item.count}`;
-					}
-					msg += getLang("page", page, splitPage.totalPage)
-						+ `\n${getLang("reply")}`
-						+ `\n\n${endMessage}`;
-
-					return message.reply(msg, (err, info) => {
-						if (err)
-							return message.err(err);
-						global.GoatBot.onReply.set(info.messageID, {
-							commandName,
-							messageID: info.messageID,
-							splitPage,
-							author: senderID
-						});
-					});
-				}
-				message.reply(msg);
+				message.reply(msg + `\n\n${endMessage}`);
 			}
 			else if (event.mentions) {
 				let msg = "";
 				for (const id in event.mentions) {
 					const findUser = arraySort.find(item => item.uid == id);
-					msg += `\n${getLang("result", findUser.name, findUser.stt, findUser.count)}`;
+					if (findUser) {
+						msg += `\n${getLang("result", findUser.name, findUser.stt, findUser.count)}`;
+					} else {
+						msg += "\n" + this.insults[Math.floor(Math.random() * this.insults.length)];
+					}
 				}
 				message.reply(msg);
 			}
 		}
 		else {
 			const findUser = arraySort.find(item => item.uid == senderID);
-			return message.reply(getLang("yourResult", findUser.stt, findUser.count));
+			if (findUser) {
+				message.reply(getLang("yourResult", findUser.stt, findUser.count));
+			} else {
+				message.reply(this.insults[Math.floor(Math.random() * this.insults.length)]);
+			}
 		}
-	},
-
-	onReply: ({ message, event, Reply, commandName, getLang }) => {
-		const { senderID, body } = event;
-		const { author, splitPage } = Reply;
-		if (author != senderID)
-			return;
-		const page = parseInt(body);
-		if (isNaN(page) || page < 1 || page > splitPage.totalPage)
-			return message.reply(getLang("invalidPage"));
-		let msg = getLang("count");
-		const endMessage = getLang("endMessage");
-		const arraySort = splitPage.allPage[page - 1];
-		for (const item of arraySort) {
-			if (item.count > 0)
-				msg += `\n${item.stt}/ ${item.name}: ${item.count}`;
-		}
-		msg += getLang("page", page, splitPage.totalPage)
-			+ "\n" + getLang("reply")
-			+ "\n\n" + endMessage;
-		message.reply(msg, (err, info) => {
-			if (err)
-				return message.err(err);
-			message.unsend(Reply.messageID);
-			global.GoatBot.onReply.set(info.messageID, {
-				commandName,
-				messageID: info.messageID,
-				splitPage,
-				author: senderID
-			});
-		});
 	},
 
 	onChat: async ({ usersData, threadsData, event }) => {
@@ -156,10 +115,9 @@ module.exports = {
 				inGroup: true,
 				count: 1
 			});
-		}
-		else
+		} else {
 			findMember.count += 1;
+		}
 		await threadsData.set(threadID, members, "members");
 	}
-
 };
