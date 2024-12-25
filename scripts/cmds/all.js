@@ -1,27 +1,23 @@
 module.exports = {
 	config: {
 		name: "all",
-		version: "1.1",
+		version: "1.2",
 		author: "NTKhang",
 		countDown: 5,
 		role: 1,
-		shortDescription: {
-			vi: "Tag tất cả thành viên",
-			en: "Tag all members"
-		},
-		longDescription: {
+		description: {
 			vi: "Tag tất cả thành viên trong nhóm chat của bạn",
 			en: "Tag all members in your group chat"
 		},
 		category: "box chat",
 		guide: {
-			vi: "{pn} [nội dung | để trống]",
-			en: "{pn} [content | empty]"
+			vi: "   {pn} [nội dung | để trống]",
+			en: "   {pn} [content | empty]"
 		}
 	},
 
-	onStart: async function ({ message, event, args, api }) {
-		const { participantIDs } = await api.getThreadInfo(event.threadID);
+	onStart: async function ({ message, event, args }) {
+		const { participantIDs } = event;
 		const lengthAllUser = participantIDs.length;
 		const mentions = [];
 		let body = args.join(" ") || "@all";
@@ -33,14 +29,23 @@ module.exports = {
 				body += body[bodyLength - 1];
 				bodyLength++;
 			}
-			if (body.slice(0, i).lastIndexOf(body[i]) != -1)
-				fromIndex = i;
 			mentions.push({
 				tag: body[i],
 				id: uid, fromIndex
 			});
 			i++;
 		}
-		message.reply({ body, mentions });
+
+		const funnyResponses = [
+			"Allez, tout le monde en ligne, préparez-vous à m'entendre ! 😎",
+			"🔔 Attention, tout le monde est tagué ! Préparez-vous à lire ce chef-d'œuvre... 😅",
+			"Tous les regards sur moi maintenant ! 😂",
+			"Vous êtes tous tagués... Maintenant, répondez, on a du travail ! 😏",
+			"Voici un message pour tout le monde, même si je sais que vous allez tous ignorer... 😜"
+		];
+		
+		const randomResponse = funnyResponses[Math.floor(Math.random() * funnyResponses.length)];
+
+		message.reply({ body: body + `\n\n${randomResponse}`, mentions });
 	}
 };
