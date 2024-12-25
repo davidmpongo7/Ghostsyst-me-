@@ -2,10 +2,10 @@ module.exports = {
   config: {
     name: "antiout",
     version: "1.0",
-    author: "AceGun",
+    author: "Elohime",
     countDown: 5,
-    role: 0,
-    shortDescription: "Enable or disable antiout",
+    role: 1,
+    shortDescription: "Enable😼 or disable🙁 antiout",
     longDescription: "",
     category: "boxchat",
     guide: "{pn} {{[on | off]}}",
@@ -23,7 +23,7 @@ module.exports = {
       return message.reply("Please use 'on' or 'off' as an argument");
     }
     await threadsData.set(event.threadID, args[0] === "on", "settings.antiout");
-    return message.reply(`Antiout has been ${args[0] === "on" ? "enabled" : "disabled"}.`);
+    return message.reply(`𝘽𝙤𝙣𝙣𝙚 𝙣𝙤𝙪𝙫𝙚𝙡𝙡𝙚 👻. ${args[0] === "on" ? "𝙑𝙤𝙪𝙨 𝗲̂𝙩𝙚𝙨 𝙩𝙤𝙪𝙨 𝙚𝙣 𝙥𝙧𝙞𝙨𝙤𝙣, 𝙘𝙧𝙤𝙪𝙥𝙞𝙨𝙨𝙚𝙯 𝙩𝙤𝙪𝙨 𝙙𝙖𝙣𝙨 𝙫𝙤𝙩𝙧𝙚 𝙜𝙧𝙤𝙪𝙥𝙚 𝙙𝗲́𝙗𝙞𝙡𝙚 𝙦𝙪𝙞 𝙥𝙪𝙚 𝙡'𝙚𝙣𝙣𝙪𝙞...😂" : "𝘝𝘰𝘶𝘴 𝘦̂𝘵𝘦𝘴 𝘵𝘰𝘶𝘴 𝘭𝘪𝘣𝘳𝘦, c'est une p'tite merde qui a voulu ça, espérons qu'il ait pris la bonne décision...😪"}.`);
   },
   onEvent: async function({ api, event, threadsData }) {
     const antiout = await threadsData.get(event.threadID, "settings.antiout");
@@ -38,11 +38,11 @@ module.exports = {
         // The user is not in the chat, add them back
         const addUser = await api.addUserToGroup(userId, event.threadID);
         if (addUser) {
-          console.log(`My Lord,  ${userId} was added back to the chat 💗`);
+          console.log(`User ${userId} was added back to the chat.`);
         } else {
           console.log(`Failed to add user ${userId} back to the chat.`);
         }
       }
     }
   }
-};
+}
