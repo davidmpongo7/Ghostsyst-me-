@@ -4,15 +4,11 @@ const moment = require("moment-timezone");
 module.exports = {
 	config: {
 		name: "ban",
-		version: "1.2",
+		version: "1.4",
 		author: "NTKhang",
 		countDown: 5,
 		role: 1,
-		shortDescription: {
-			vi: "Cấm thành viên khỏi box chat",
-			en: "Ban user from box chat"
-		},
-		longDescription: {
+		description: {
 			vi: "Cấm thành viên khỏi box chat",
 			en: "Ban user from box chat"
 		},
@@ -49,22 +45,22 @@ module.exports = {
 			bannedKick: "⚠️ | %1 đã bị cấm khỏi box chat từ trước!\nUID: %2\nLý do: %3\nThời gian cấm: %4\n\nBot đã tự động kick thành viên này"
 		},
 		en: {
-			notFoundTarget: "⚠️ | Please tag the person to ban or enter uid or fb link or reply to the message of the person to ban",
-			notFoundTargetUnban: "⚠️ | Please tag the person to unban or enter uid or fb link or reply to the message of the person to unban",
-			userNotBanned: "⚠️ | The person with id %1 is not banned from this box chat",
-			unbannedSuccess: "✅ | Unbanned %1 from box chat!",
-			cantSelfBan: "⚠️ | You can't ban yourself!",
-			cantBanAdmin: "❌ | You can't ban the administrator!",
-			existedBan: "❌ | This person has been banned before!",
-			noReason: "No reason",
-			bannedSuccess: "✅ | Banned %1 from box chat!",
-			needAdmin: "⚠️ | Bot needs administrator permission to kick banned members",
-			noName: "Facebook user",
-			noData: "📑 | There are no banned members in this box chat",
-			listBanned: "📑 | List of banned members in this box chat (page %1/%2)",
-			content: "%1/ %2 (%3)\nReason: %4\nBan time: %5\n\n",
-			needAdminToKick: "⚠️ | Member %1 (%2) has been banned from box chat, but the bot does not have administrator permission to kick this member, please grant administrator permission to the bot to kick this member",
-			bannedKick: "⚠️ | %1 has been banned from box chat before!\nUID: %2\nReason: %3\nBan time: %4\n\nBot has automatically kicked this member"
+			notFoundTarget: "⚠️ | Vous êtes trop bête pour taguer quelqu’un, rentrez un uid ou un lien Facebook, ou répondez à un message d’un idiot à bannir.",
+			notFoundTargetUnban: "⚠️ | Vous êtes vraiment une tête de linotte. Taguez la personne à débannir, mettez un UID, ou répondez à un message, pauvre imbécile.",
+			userNotBanned: "⚠️ | Sérieusement ? La personne avec l'ID %1 n'est même pas bannie de ce groupe de clowns.",
+			unbannedSuccess: "✅ | %1 est maintenant libre. Félicitations, vous avez fait quelque chose de bien pour une fois.",
+			cantSelfBan: "⚠️ | Non, vous ne pouvez pas vous bannir vous-même, même si ce serait une bonne idée.",
+			cantBanAdmin: "❌ | Vous ne pouvez pas bannir un admin, même si c’est tentant.",
+			existedBan: "❌ | Cette personne a déjà été bannie, pauvre idiot.",
+			noReason: "Aucune raison, parce que vous êtes trop stupide pour en trouver une.",
+			bannedSuccess: "✅ | %1 a été banni ! Enfin quelqu’un qui a mérité ça.",
+			needAdmin: "⚠️ | Le bot a besoin de droits d’administrateur pour virer les membres bannis. Sinon, il faut pleurer ailleurs.",
+			noName: "Utilisateur Facebook, mais sûrement sans cervelle.",
+			noData: "📑 | Il n'y a personne à bannir ici, à part vous peut-être.",
+			listBanned: "📑 | Liste des membres bannis (page %1/%2), même si je doute que vous en ayez un intérêt.",
+			content: "%1/ %2 (%3)\nRaison: %4\nHeure du ban: %5\n\n",
+			needAdminToKick: "⚠️ | %1 (%2) est banni, mais le bot n’a pas les droits d'admin. Allez, accordez-lui les droits avant qu’il vous fasse pleurer.",
+			bannedKick: "⚠️ | %1 a déjà été banni !\nUID: %2\nRaison: %3\nHeure du ban: %4\n\nBot l’a automatiquement viré. Vous pouvez remercier le bot pour ça."
 		}
 	},
 
@@ -165,9 +161,11 @@ module.exports = {
 		await threadsData.set(event.threadID, dataBanned, 'data.banned_ban');
 		message.reply(getLang('bannedSuccess', name), () => {
 			if (members.some(item => item.userID == target)) {
-				if (adminIDs.includes(api.getCurrentUserID()))
-					api.removeUserFromGroup(target, event.threadID);
-				else
+				if (adminIDs.includes(api.getCurrentUserID())) {
+					if (event.participantIDs.includes(target))
+						api.removeUserFromGroup(target, event.threadID);
+				}
+				else {
 					message.send(getLang('needAdmin'), (err, info) => {
 						global.GoatBot.onEvent.push({
 							messageID: info.messageID,
@@ -181,6 +179,7 @@ module.exports = {
 							}
 						});
 					});
+				}
 			}
 		});
 	},
