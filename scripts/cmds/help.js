@@ -34,7 +34,7 @@ module.exports = {
       const categories = {};
       let msg = "";
 
-      msg += `\n. ∧︵ ∧\n. ᗒ(⟢ω⟣)ᗕ  ★[ᕼᗴᒪᑭ]★》\n╭∪─∪────────⭓\n│●๋ [⚞𝐆𝐇𝐎𝐒𝐓⚟] ●๋\n├───────────⭓\n│🗒️𝐋𝐢𝐬𝐭𝐞 𝐝𝐞𝐬 𝐜𝐦𝐝𝐬🗒️\n╰───────────⭓`; // replace with your name 
+      msg += `\n. ∧︵ ∧\n. ᗒ(⟢ω⟣)ᗕ  ★[ᕼᗴᒪᑭ]★》\n╭∪─∪────────⭓\n│●๋ [⚞𝐆𝐇𝐎𝐒𝐓⚟] ●๋\n├───────────�[...]
 
       for (const [name, value] of commands) {
         if (value.config.role > 1 && role < value.config.role) continue;
@@ -60,15 +60,15 @@ module.exports = {
       });
 
       const totalCommands = commands.size;
-      msg += `╭───────────⭓\n│𝐈𝐍𝐅𝐎 \n│𝐒𝐔𝐏𝐏𝐋𝐄́𝐌𝐄𝐍𝐓𝐀𝐈𝐑𝐄\n├───────────⭓\n│𝐣'𝐚𝐢 ${totalCommands} 𝐜𝐨𝐦𝐦𝐚𝐧𝐝𝐞𝐬\n│𝐞𝐧 𝐦𝐚 𝐩𝐨𝐬𝐬𝐞𝐬𝐬𝐢𝐨𝐧 \n├───────────⭓`;
-      msg += `\n│𝗲́𝗰𝗿𝗶𝘁 [${prefix} 𝗵𝗲𝗹𝗽+ 𝗻𝗼𝗺 𝗱𝗲 𝗹𝗮\n│𝗰𝗺𝗱], 𝐩𝐨𝐮𝐫 𝐞𝐧 𝐬𝐚𝐯𝐨𝐢𝐫\n│ 𝐝'𝐚𝐯𝐚𝐧𝐭𝐚𝐠𝐞\n╰───────────⭓`;
+      msg += `╭───────────⭓\n│𝐈𝐍𝐅𝐎 \n│𝐒𝐔𝐏𝐏𝐋𝐄́𝐌𝐄𝐍𝐓𝐀𝐈𝐑𝐄\n├───────────⭓\n│𝐣'𝐚𝐢 ${[...]
+      msg += `\n│𝗲́𝗰𝗿𝗶𝘁 [${prefix} 𝗵𝗲𝗹𝗽+ 𝗻𝗼𝗺 𝗱𝗲 𝗹𝗮\n│𝗰𝗺𝗱], 𝐩𝐨𝐮𝐫 𝐞𝐧 𝐬𝐚𝐯𝐨𝐢𝐫\n│ 𝐝'𝐚𝐯𝐚��[...]
       msg += `\n☆☆☆☆☆☆☆☆☆☆☆☆`; // its not decoy so change it if you want 
 
       const helpListImages = [
-        "https://i.imgur.com/KbyJFzN.gif", // add image link here
-                "https://i.imgur.com/HgMPxRE.gif",
+        "https://i.imgur.com/KbyJFzN.gif", 
+        "https://i.imgur.com/HgMPxRE.gif",
         "https://i.imgur.com/KbyJFzN.gif",
-        // Add more image links as needed
+        "https://i.imgur.com/35c5HJB.gif", // new image link added
       ];
 
       const helpListImage = helpListImages[Math.floor(Math.random() * helpListImages.length)];
@@ -127,4 +127,4 @@ function roleTextToString(roleText) {
     default:
       return "Unknown role";
   }
-		}
+}
