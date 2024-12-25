@@ -34,7 +34,7 @@ module.exports = {
       const categories = {};
       let msg = "";
 
-      msg += `\n. ∧︵ ∧\n. ᗒ(⟢ω⟣)ᗕ  ★[ᕼᗴᒪᑭ]★》\n╭∪─∪────────⭓\n│●๋ [⚞𝐆𝐇𝐎𝐒𝐓⚟] ●๋\n├───────────�[...]
+      msg += `\n. ∧︵ ∧\n. ᗒ(⟢ω⟣)ᗕ  ★[ᕼᗴᒪᑭ]★》\n╭∪─∪────────⭓\n│●๋ [⚞𝐆𝐇𝐎𝐒𝐓⚟] ●๋\n├───────────⭓`;
 
       for (const [name, value] of commands) {
         if (value.config.role > 1 && role < value.config.role) continue;
@@ -48,7 +48,6 @@ module.exports = {
         if (category !== "info") {
           msg += `\n╭───────────⭓\n│ ☢{${category.toUpperCase()} }☢`;
 
-
           const names = categories[category].commands.sort();
           for (let i = 0; i < names.length; i += 3) {
             const cmds = names.slice(i, i + 1).map((item) => `❥${item}✰`);
@@ -60,9 +59,7 @@ module.exports = {
       });
 
       const totalCommands = commands.size;
-      msg += `╭───────────⭓\n│𝐈𝐍𝐅𝐎 \n│𝐒𝐔𝐏𝐏𝐋𝐄́𝐌𝐄𝐍𝐓𝐀𝐈𝐑𝐄\n├───────────⭓\n│𝐣'𝐚𝐢 ${[...]
-      msg += `\n│𝗲́𝗰𝗿𝗶𝘁 [${prefix} 𝗵𝗲𝗹𝗽+ 𝗻𝗼𝗺 𝗱𝗲 𝗹𝗮\n│𝗰𝗺𝗱], 𝐩𝐨𝐮𝐫 𝐞𝐧 𝐬𝐚𝐯𝐨𝐢𝐫\n│ 𝐝'𝐚𝐯𝐚��[...]
-      msg += `\n☆☆☆☆☆☆☆☆☆☆☆☆`; // its not decoy so change it if you want 
+      msg += `╭───────────⭓\n│𝐈𝐍𝐅𝐎 \n│𝐒𝐔𝐏𝐏𝐋𝐄́𝐌𝐄𝐍𝐓𝐀𝐈𝐑𝐄\n├───────────⭓\n│𝐣'𝐚𝐢 ${totalCommands} commandes disponibles\n│𝗲́𝗰𝗿𝗶𝘁 [${prefix} 𝗵𝗲𝗹𝗽+ 𝗻𝗼𝗺 𝗱𝗲 𝗹𝗮\n│𝗰𝗺𝗱], 𝐩𝐨𝐮𝐫 𝐞𝐧 𝐬𝐚𝐯𝐨𝐢𝐫\n│ 𝐝'𝐚𝐯𝐚𝗻𝘁𝗮𝗴𝗲.\n☆☆☆☆☆☆☆☆☆☆☆☆`;
 
       const helpListImages = [
         "https://i.imgur.com/KbyJFzN.gif", 
