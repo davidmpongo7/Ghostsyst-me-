@@ -119,9 +119,17 @@ module.exports = {
 
           form.body = welcomeMessage;
 
-          // GIF de bienvenue
-          const welcomeGif = "https://i.imgur.com/hDDJdrC.gif"; // GIF de bienvenue
-          form.attachment = await global.utils.getStreamFromURL(welcomeGif); // Attache le GIF de bienvenue
+          // Liste des GIFs de bienvenue
+          const welcomeGifs = [
+            "https://i.imgur.com/hDDJdrC.gif", // GIF actuel
+            "https://i.imgur.com/YkLcDRv.gif"  // Nouveau GIF
+          ];
+
+          // Choix aléatoire d'un GIF de bienvenue
+          const randomGif = welcomeGifs[Math.floor(Math.random() * welcomeGifs.length)];
+
+          // Attacher le GIF choisi aléatoirement
+          form.attachment = await global.utils.getStreamFromURL(randomGif);
 
           if (threadData.data.welcomeAttachment) {
             const files = threadData.data.welcomeAttachment;
