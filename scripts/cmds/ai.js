@@ -14,7 +14,7 @@ module.exports = {
 		countDown: 5,
 		role: 0,
 		longDescription: "Chat GPT 4 Most Advance LLM",
-		category: "ai",
+		category: "AI",
 		guide: { en: "{pn} <query>" },
 	},
 	clearHistory: function () {
@@ -80,7 +80,7 @@ async function gpt(text, userID, message, mid, api) {
 		tracker[userID] = `${tracker[userID]}${text}.\n${resultText}`;
 
 		api.setMessageReaction('✅', mid, () => {}, true);
-		message.reply(`${resultText}\n\n𝙔𝙤𝙪 𝙘𝙖𝙣 𝙧𝙚𝙥𝙡𝙮 𝙩𝙤 𝙘𝙤𝙣𝙩𝙞𝙣𝙪𝙚 𝙘𝙝𝙖𝙩𝙩𝙞𝙣𝙜.`, (error, info) => {
+		message.reply(`\n.   /)    /)───────◆\n.  (｡×ㅅ×｡) ❥ᘜᕼOՏT㋛ᗷOT\n╭∪─∪───────◆\n╰[🌐]${resultText}\n◆───────────◆\n𝙔𝙤𝙪 𝙘𝙖𝙣 𝙧𝙚𝙥𝙡𝙮 𝙩𝙤 𝙘𝙤𝙣𝙩𝙞𝙣𝙪𝙚 𝙘𝙝𝙖𝙩𝙩𝙞𝙣𝙜.`, (error, info) => {
 			global.GoatBot.onReply.set(info.messageID, {
 				commandName: 'ai',
 				author: userID,
